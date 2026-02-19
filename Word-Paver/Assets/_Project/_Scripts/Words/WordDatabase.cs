@@ -7,7 +7,7 @@ public class WordDatabase : MonoBehaviour
 
     private Dictionary<int, List<string>> _wordsByDifficulty = new();
 
-    private void Start()
+    private void Awake()
     {
         Initialize();
     }
