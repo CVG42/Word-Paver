@@ -10,6 +10,7 @@ public class TypingController : Singleton<ITypingSource>, ITypingSource
     public event Action<string> OnWordChanged;
 
     public int CurrentWordLength => _currentWord.Length;
+    public string CurrentWord => _currentWord;
 
     private string _currentWord;
     private int _currentIndex;
@@ -62,6 +63,7 @@ public interface ITypingSource
     event Action<string> OnWordChanged;
 
     int CurrentWordLength {  get; }
+    string CurrentWord { get; }
 
     void SetWord(string word);
     void ProcessInput(char input);

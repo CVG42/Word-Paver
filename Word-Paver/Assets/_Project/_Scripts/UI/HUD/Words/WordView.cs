@@ -20,6 +20,13 @@ public class WordView : MonoBehaviour
     {
         TypingController.Source.OnWordChanged += SetWord;
         TypingController.Source.OnLetterCorrect += HandleLetterCorrect;
+
+        var typing = TypingController.Source;
+
+        if (typing != null && typing.CurrentWordLength > 0)
+        {
+            SetWord(typing.CurrentWord);
+        }
     }
 
     public void SetWord(string word)
