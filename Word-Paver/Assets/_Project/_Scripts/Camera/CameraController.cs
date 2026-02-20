@@ -16,16 +16,21 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         LevelController.Source.OnTypingError += ShakeOnError;
+        LevelController.Source.OnWordCompleted += MoveForward;
     }
 
-    public void MoveForward()
+    private void MoveForward()
     {
+        if (GameManager.Source.CurrentGameState != GameState.OnPlay) return;
+
         transform.DOMoveZ(transform.position.z + _moveDistance, _moveDuration)
             .SetEase(Ease.OutQuad);
     }
 
     private void ShakeOnError()
     {
+        if (GameManager.Source.CurrentGameState != GameState.OnPlay) return;
+
         _shakeTween?.Kill();
 
         _shakeTween = transform.DOShakePosition(
@@ -35,5 +40,11 @@ public class CameraController : MonoBehaviour
             randomness: 90,
             fadeOut: true
         );
+    }
+
+    private void OnDestroy()
+    {
+        LevelController.Source.OnTypingError -= ShakeOnError;
+        LevelController.Source.OnWordCompleted -= MoveForward;
     }
 }

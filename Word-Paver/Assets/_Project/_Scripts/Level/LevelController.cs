@@ -6,7 +6,6 @@ using Utilities;
 public class LevelController : Singleton<ILevelSource>, ILevelSource
 {
     [SerializeField] private PathBuilder _path;
-    [SerializeField] private CameraController _camera;
     [SerializeField] private EnvironmentManager _environment;
 
     [Header("Balance")]
@@ -17,6 +16,7 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
     public event Action<float, float> OnTimerChanged;
     public event Action OnTimerFinished;
     public event Action OnTypingError;
+    public event Action OnWordCompleted;
 
     private bool _wordCompleted;
     private float _maxTime;
@@ -24,6 +24,8 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
 
     private async void Start()
     {
+        GameManager.Source.ChangeState(GameState.OnPlay);
+
         _maxTime = _initialTime;
         _timer = new CountdownTimer(_maxTime);
         _timer.Start();
@@ -37,6 +39,8 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
 
     private void Update()
     {
+        if (GameManager.Source.CurrentGameState != GameState.OnPlay) return;
+
         _timer?.Tick(Time.deltaTime);
 
         NotifyTimer();
@@ -117,7 +121,7 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
 
         ClampTimer();
 
-        _camera.MoveForward();
+        OnWordCompleted?.Invoke();
     }
 
     private void HandleLetterFailed()
@@ -130,6 +134,8 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
 
     private void HandleGameOver()
     {
+        GameManager.Source.ChangeState(GameState.OnGameOver);
+
         OnTimerFinished?.Invoke();
         Debug.Log($"Distance travelled: {GameManager.Source.DistanceTravelled}");
         enabled = false;
@@ -169,4 +175,5 @@ public interface ILevelSource
     event Action<float, float> OnTimerChanged;
     event Action OnTimerFinished;
     event Action OnTypingError;
+    event Action OnWordCompleted;
 }

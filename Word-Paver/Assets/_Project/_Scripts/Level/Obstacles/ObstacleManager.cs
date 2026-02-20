@@ -19,6 +19,8 @@ public class ObstacleManager : Singleton<IObstacleSource>, IObstacleSource
 
     public bool TrySpawnObstacle(float distance)
     {
+        if (GameManager.Source.CurrentGameState != GameState.OnPlay) return false;
+
         if (distance < _startDistance) return false;
         if (_activeObstacle != null) return true;
 

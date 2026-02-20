@@ -17,6 +17,8 @@ public class TypingController : Singleton<ITypingSource>, ITypingSource
 
     private void Update()
     {
+        if (GameManager.Source.CurrentGameState != GameState.OnPlay) return;
+
         foreach (char c in Input.inputString)
         {
             ProcessInput(c);

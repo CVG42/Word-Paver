@@ -25,6 +25,8 @@ public class PathBuilder : MonoBehaviour
 
     public void SpawnBlock()
     {
+        if (GameManager.Source.CurrentGameState != GameState.OnPlay) return;
+
         GameObject block = ObjectPoolManager.Source.Borrow(_currentPrefab);
 
         block.transform.position = new Vector3(0, 0, _currentZ);
