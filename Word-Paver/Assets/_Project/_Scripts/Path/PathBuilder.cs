@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Pooling;
 using UnityEngine;
 
@@ -10,14 +11,9 @@ public class PathBuilder : MonoBehaviour
     [SerializeField] private int _maxBlocks = 10;
     [SerializeField] private int _prewarmBlocks = 10;
 
-    public event Action<float> OnDistanceChanged;
-    public float DistanceTravelled => _distanceTravelled;
-
     private Queue<GameObject> _activeBlocks = new();
 
     private float _currentZ;
-    private float _distanceTravelled;
-
     private GameObject _currentPrefab;
 
     private void Start()
@@ -33,13 +29,18 @@ public class PathBuilder : MonoBehaviour
 
         block.transform.position = new Vector3(0, 0, _currentZ);
         block.transform.rotation = Quaternion.identity;
+        
+        var visual = block.GetComponent<PathBlockVisual>();
+
+        Vector3 baseScale = visual.GetBaseScale();
+
+        block.transform.localScale = Vector3.zero;
+
+        AnimateSpawn(block.transform, baseScale);
 
         _activeBlocks.Enqueue(block);
 
         _currentZ += _blockLength;
-        _distanceTravelled += _blockLength;
-
-        OnDistanceChanged?.Invoke(_distanceTravelled);
 
         HandleOverflow();
     }
@@ -71,5 +72,15 @@ public class PathBuilder : MonoBehaviour
         GameObject oldestBlock = _activeBlocks.Dequeue();
 
         ObjectPoolManager.Source.Return(oldestBlock);
+    }
+
+    private void AnimateSpawn(Transform block, Vector3 baseScale)
+    {
+        block.DOScale(baseScale * 1.15f, 0.22f)
+            .SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                block.DOScale(baseScale, 0.08f);
+            });
     }
 }

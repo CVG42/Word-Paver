@@ -5,9 +5,9 @@ using Utilities;
 
 public class LevelController : Singleton<ILevelSource>, ILevelSource
 {
-    [SerializeField] private TypingController _typing;
     [SerializeField] private PathBuilder _path;
     [SerializeField] private CameraController _camera;
+    [SerializeField] private EnvironmentManager _environment;
 
     [Header("Balance")]
     [SerializeField] private float _timePerLetter = 0.3f;
@@ -16,6 +16,7 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
 
     public event Action<float, float> OnTimerChanged;
     public event Action OnTimerFinished;
+    public event Action OnTypingError;
 
     private bool _wordCompleted;
     private float _maxTime;
@@ -28,7 +29,7 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
         _timer.Start();
 
         SubscribeEvents();
-
+        InitializeWorld();
         NotifyTimer();
 
         await StartGameLoop();
@@ -46,12 +47,24 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
         }
     }
 
+    private void InitializeWorld()
+    {
+        var world = WorldManager.Source.GetWorld(0);
+
+        if (world == null) return;
+
+        _path.SetWorld(world);
+        _environment.SetWorld(world.Environment);
+
+        Debug.Log($"Initial world: {world.Name}");
+    }
+
     private void SubscribeEvents()
     {
-        _typing.OnWordCompleted += HandleWordCompleted;
-        _typing.OnLetterFailed += HandleLetterFailed;
+        TypingController.Source.OnWordCompleted += HandleWordCompleted;
+        TypingController.Source.OnLetterFailed += HandleLetterFailed;
 
-        _path.OnDistanceChanged += HandleDistanceChanged;
+        GameManager.Source.OnDistanceChanged += HandleDistanceChanged;
         WorldManager.Source.OnWorldChanged += HandleWorldChanged;
     }
 
@@ -61,8 +74,8 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
         {
             _wordCompleted = false;
 
-            string word = WordManager.Source.GetWord(_path.DistanceTravelled);
-            _typing.SetWord(word);
+            string word = WordManager.Source.GetWord(GameManager.Source.DistanceTravelled);
+            TypingController.Source.SetWord(word);
 
             await UniTask.WaitUntil(() => _wordCompleted || _timer.IsFinished);
         }
@@ -76,6 +89,7 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
     private void HandleWorldChanged(WorldDefinition world)
     {
         _path.SetWorld(world);
+        _environment.SetWorld(world.Environment);
 
         Debug.Log($"World changed to: {world.Name}");
     }
@@ -86,11 +100,23 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
 
         _wordCompleted = true;
 
+        if (ObstacleManager.Source.HasActiveObstacle)
+        {
+            ObstacleManager.Source.NotifyWordCompleted();
+            return;
+        }
+
+        if (ObstacleManager.Source.TrySpawnObstacle(GameManager.Source.DistanceTravelled)) return;
+
         _path.SpawnBlock();
 
-        float bonus = _typing.CurrentWordLength * _timePerLetter;
+        GameManager.Source.AddDistance(5);
+
+        float bonus = TypingController.Source.CurrentWordLength * _timePerLetter;
         _timer.AddTime(bonus);
+
         ClampTimer();
+
         _camera.MoveForward();
     }
 
@@ -98,31 +124,20 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
     {
         if (_timer.IsFinished) return;
 
+        OnTypingError?.Invoke();
         _timer.RemoveTime(_penaltyPerError);
     }
 
     private void HandleGameOver()
     {
         OnTimerFinished?.Invoke();
-        Debug.Log($"Distance travelled: {_path.DistanceTravelled}");
+        Debug.Log($"Distance travelled: {GameManager.Source.DistanceTravelled}");
         enabled = false;
     }
 
     private void NotifyTimer()
     {
         OnTimerChanged?.Invoke(_timer.GetRemainingTime(), _maxTime);
-    }
-
-    public void AddTime(float value)
-    {
-        _timer.AddTime(value);
-        NotifyTimer();
-    }
-
-    public void RemoveTime(float value)
-    {
-        _timer.RemoveTime(value);
-        NotifyTimer();
     }
 
     private void ClampTimer()
@@ -142,9 +157,9 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
 
     private void OnDestroy()
     {
-        _typing.OnWordCompleted -= HandleWordCompleted;
-        _typing.OnLetterFailed -= HandleLetterFailed;
-        _path.OnDistanceChanged -= HandleDistanceChanged;
+        TypingController.Source.OnWordCompleted -= HandleWordCompleted;
+        TypingController.Source.OnLetterFailed -= HandleLetterFailed;
+        GameManager.Source.OnDistanceChanged -= HandleDistanceChanged;
         WorldManager.Source.OnWorldChanged -= HandleWorldChanged;
     }
 }
@@ -153,4 +168,5 @@ public interface ILevelSource
 {
     event Action<float, float> OnTimerChanged;
     event Action OnTimerFinished;
+    event Action OnTypingError;
 }

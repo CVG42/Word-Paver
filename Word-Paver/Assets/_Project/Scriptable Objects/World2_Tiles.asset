@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b9d2d22b99a6d4aa35ed20221a86e9, type: 3}
+  m_Name: World2_Tiles
+  m_EditorClassIdentifier: Assembly-CSharp::WorldTileDefinition
+  TileVariants:
+  - {fileID: 1196006425004308853, guid: f2346193a2419224a863950fc370cd06, type: 3}
+  - {fileID: -8315942108251306790, guid: 48b3370da526e2346a8c2624654b00b7, type: 3}
+  - {fileID: -9025153644806353097, guid: 4dd09af4bfa9c8f4aad86d87da3cda10, type: 3}
