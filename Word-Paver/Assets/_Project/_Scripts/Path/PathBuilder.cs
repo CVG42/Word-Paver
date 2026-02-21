@@ -94,6 +94,7 @@ public class PathBuilder : MonoBehaviour
             .OnComplete(() =>
             {
                 block.DOScale(baseScale, 0.08f);
+                AudioManager.Source.PlaySpawnSFX();
             });
     }
 }

@@ -24,6 +24,7 @@ public class StartTypingGate : MonoBehaviour
     {
         if (_word[_index] == c)
         {
+            AudioManager.Source.PlayTypeSFX();
             _index++;
 
             if (_index >= _word.Length)

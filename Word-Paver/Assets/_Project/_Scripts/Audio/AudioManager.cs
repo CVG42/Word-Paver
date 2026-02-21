@@ -102,6 +102,8 @@ public class AudioManager : Singleton<IAudioSource>, IAudioSource
 
     public void PlayHoverSFX() => PlayOneShot("Hover");
     public void PlaySelectedSFX() => PlayOneShot("Select");
+    public void PlaySpawnSFX() => PlayOneShot("Spawn");
+    public void PlayTypeSFX() => PlayOneShot("Type");
 }
 
 public interface IAudioSource
@@ -122,4 +124,6 @@ public interface IAudioSource
 
     void PlayHoverSFX();
     void PlaySelectedSFX();
+    void PlaySpawnSFX();
+    void PlayTypeSFX();
 }

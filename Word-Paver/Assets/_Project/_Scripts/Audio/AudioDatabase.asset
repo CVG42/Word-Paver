@@ -21,3 +21,7 @@ MonoBehaviour:
     audioName: Hover
   - audio: {fileID: 8300000, guid: 6f843451e9b30a9488e9dfd55bef1dec, type: 3}
     audioName: Select
+  - audio: {fileID: 8300000, guid: 0fcb52ae100aaaf4fa337806be9e1f7d, type: 3}
+    audioName: Type
+  - audio: {fileID: 8300000, guid: 180f870983c4162418b2fdfe83a93ddf, type: 3}
+    audioName: Spawn

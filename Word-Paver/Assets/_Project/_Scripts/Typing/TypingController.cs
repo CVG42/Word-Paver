@@ -40,6 +40,8 @@ public class TypingController : Singleton<ITypingSource>, ITypingSource
         if (string.IsNullOrEmpty(_currentWord)) return;
         if (_currentIndex >= _currentWord.Length) return;
 
+        AudioManager.Source.PlayTypeSFX();
+
         if (_currentWord[_currentIndex] == input)
         {
             OnLetterCorrect?.Invoke(_currentIndex);

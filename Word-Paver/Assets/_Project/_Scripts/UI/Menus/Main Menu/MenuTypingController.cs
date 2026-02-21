@@ -13,23 +13,24 @@ public class MenuTypingController : MonoBehaviour
         {
             if (!char.IsLetter(c)) continue;
 
+            AudioManager.Source.PlayTypeSFX();
             ProcessInput(char.ToLowerInvariant(c));
         }
     }
 
     private void ProcessInput(char c)
     {
-        foreach (var option in _options)
+        if (_activeOption == null)
         {
-            if (option.Word.StartsWith(c.ToString(), System.StringComparison.OrdinalIgnoreCase))
+            foreach (var option in _options)
             {
-                if (_activeOption != option)
-                {
-                    _activeOption?.ResetProgress();
-                    _activeOption = option;
-                }
+                if (!option.isActiveAndEnabled) continue;
 
-                break;
+                if (option.Word.StartsWith(c.ToString(), System.StringComparison.OrdinalIgnoreCase))
+                {
+                    _activeOption = option;
+                    break;
+                }
             }
         }
 
@@ -40,6 +41,7 @@ public class MenuTypingController : MonoBehaviour
         if (!success)
         {
             _activeOption.ResetProgress();
+            _activeOption = null;
         }
     }
 
