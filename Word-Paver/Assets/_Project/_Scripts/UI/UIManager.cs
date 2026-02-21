@@ -1,14 +1,32 @@
+using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using static UnityEditor.Rendering.MaterialUpgrader;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<IUISource>, IUISource
 {
     [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private GameObject _gameOverMenu;
+
+    [Header("Dialogue")]
+    [SerializeField] private GameObject _dialogPanel;
+    [SerializeField] private TMP_Text _dialogText;
 
     private void Start()
     {
         HideAllMenus();
         GameManager.Source.OnGameStateChanged += HandleGameStateChanged;
+    }
+
+    public void ShowDialogue(string message)
+    {
+        _dialogPanel.SetActive(true);
+        _dialogText.text = message;
+    }
+
+    public void HideDialogue()
+    {
+        _dialogPanel.SetActive(false);
     }
 
     private void HandleGameStateChanged(GameState state)
@@ -37,4 +55,17 @@ public class UIManager : MonoBehaviour
     {
         GameManager.Source.OnGameStateChanged -= HandleGameStateChanged;
     }
+}
+
+public interface IUISource
+{
+    void ShowDialogue(string message);
+    void HideDialogue();
+}
+
+public enum DialogueCategory
+{
+    Tutorial,
+    RegularStart,
+    Retry
 }

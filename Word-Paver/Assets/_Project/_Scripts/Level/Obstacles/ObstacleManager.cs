@@ -65,6 +65,17 @@ public class ObstacleManager : Singleton<IObstacleSource>, IObstacleSource
             _activeObstacle = null;
         }
     }
+
+    public void ResetObstacles()
+    {
+        if (_activeObstacle != null)
+        {
+            ObjectPoolManager.Source.Return(_activeObstacle.gameObject);
+            _activeObstacle = null;
+        }
+
+        _lastSpawnDistance = 0;
+    }
 }
 
 public interface IObstacleSource
@@ -72,4 +83,5 @@ public interface IObstacleSource
     bool HasActiveObstacle { get; }
     bool TrySpawnObstacle(float distance);
     void NotifyWordCompleted();
+    void ResetObstacles();
 }

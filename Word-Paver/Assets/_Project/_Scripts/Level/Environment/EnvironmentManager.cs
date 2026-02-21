@@ -112,7 +112,15 @@ public class EnvironmentManager : MonoBehaviour
     {
         _definition = definition;
 
+        ResetEnvironment();
+    }
+
+    public void ResetEnvironment()
+    {
         RecycleAllTiles();
+
+        _nextSpawnZ = 0;
+
         Prewarm();
         InitialSpawn();
     }

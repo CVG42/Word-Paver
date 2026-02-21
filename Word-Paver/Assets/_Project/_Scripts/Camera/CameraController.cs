@@ -12,11 +12,18 @@ public class CameraController : MonoBehaviour
     [SerializeField] private int _shakeVibrato = 12;
 
     private Tween _shakeTween;
+    private Vector3 _initialPosition;
+
+    private void Awake()
+    {
+        _initialPosition = transform.position;
+    }
 
     private void Start()
     {
         LevelController.Source.OnTypingError += ShakeOnError;
         LevelController.Source.OnWordCompleted += MoveForward;
+        LevelController.Source.OnRunRestarted += ResetCamera;
     }
 
     private void MoveForward()
@@ -42,9 +49,16 @@ public class CameraController : MonoBehaviour
         );
     }
 
+    private void ResetCamera()
+    {
+        _shakeTween?.Kill();
+        transform.position = _initialPosition;
+    }
+
     private void OnDestroy()
     {
         LevelController.Source.OnTypingError -= ShakeOnError;
         LevelController.Source.OnWordCompleted -= MoveForward;
+        LevelController.Source.OnRunRestarted -= ResetCamera;
     }
 }

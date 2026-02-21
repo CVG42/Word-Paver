@@ -58,6 +58,17 @@ public class PathBuilder : MonoBehaviour
         PrewarmPrefab(_currentPrefab);
     }
 
+    public void ResetPath()
+    {
+        while (_activeBlocks.Count > 0)
+        {
+            GameObject block = _activeBlocks.Dequeue();
+            ObjectPoolManager.Source.Return(block);
+        }
+
+        _currentZ = 0;
+    }
+
     private void PrewarmPrefab(GameObject prefab)
     {
         for (int i = 0; i < _prewarmBlocks; i++)

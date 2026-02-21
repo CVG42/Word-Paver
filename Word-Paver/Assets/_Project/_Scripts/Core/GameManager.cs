@@ -30,6 +30,11 @@ public class GameManager : Singleton<IGameSource>, IGameSource
 
     public void ResumePreviousState()
     {
+        if (_previousState == GameState.OnPause)
+        {
+            _previousState = GameState.OnPlay;
+        }
+
         ChangeState(_previousState);
     }
 
@@ -81,6 +86,7 @@ public interface IGameSource
 
 public enum GameState
 {
+    OnIntro,
     OnPlay,
     OnPause,
     OnGameOver

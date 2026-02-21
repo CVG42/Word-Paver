@@ -17,24 +17,21 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
     public event Action OnTimerFinished;
     public event Action OnTypingError;
     public event Action OnWordCompleted;
+    public event Action OnRunRestarted;
 
     private bool _wordCompleted;
     private float _maxTime;
     private CountdownTimer _timer;
 
-    private async void Start()
+    private void Start()
     {
-        GameManager.Source.ChangeState(GameState.OnPlay);
+        GameManager.Source.ChangeState(GameState.OnIntro);
 
         _maxTime = _initialTime;
         _timer = new CountdownTimer(_maxTime);
-        _timer.Start();
 
         SubscribeEvents();
         InitializeWorld();
-        NotifyTimer();
-
-        await StartGameLoop();
     }
 
     private void Update()
@@ -51,6 +48,33 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
         }
     }
 
+    public void StartRun()
+    {
+        ResetTimer();
+
+        NotifyTimer();
+
+        StartGameLoop().Forget();
+
+        GameManager.Source.ChangeState(GameState.OnPlay);
+    }
+
+    public void RestartRun()
+    {
+        enabled = true;
+
+        TypingController.Source.SetWord(string.Empty);
+
+        ResetTimer();
+        ResetWorld();
+        ResetPath();
+        ResetObstacles();
+
+        OnRunRestarted?.Invoke();
+
+        GameManager.Source.ChangeState(GameState.OnIntro);
+    }
+
     private void InitializeWorld()
     {
         var world = WorldManager.Source.GetWorld(0);
@@ -59,8 +83,6 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
 
         _path.SetWorld(world);
         _environment.SetWorld(world.Environment);
-
-        Debug.Log($"Initial world: {world.Name}");
     }
 
     private void SubscribeEvents()
@@ -94,8 +116,6 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
     {
         _path.SetWorld(world);
         _environment.SetWorld(world.Environment);
-
-        Debug.Log($"World changed to: {world.Name}");
     }
 
     private void HandleWordCompleted()
@@ -137,7 +157,6 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
         GameManager.Source.ChangeState(GameState.OnGameOver);
 
         OnTimerFinished?.Invoke();
-        Debug.Log($"Distance travelled: {GameManager.Source.DistanceTravelled}");
         enabled = false;
     }
 
@@ -161,6 +180,28 @@ public class LevelController : Singleton<ILevelSource>, ILevelSource
         }
     }
 
+    private void ResetTimer()
+    {
+        _timer = new CountdownTimer(_maxTime);
+        _timer.Start();
+    }
+
+    private void ResetWorld()
+    {
+        WorldManager.Source.EvaluateWorld(0);
+        _environment.ResetEnvironment();
+    }
+
+    private void ResetPath()
+    {
+        _path.ResetPath();
+    }
+
+    private void ResetObstacles()
+    {
+        ObstacleManager.Source.ResetObstacles();
+    }
+
     private void OnDestroy()
     {
         TypingController.Source.OnWordCompleted -= HandleWordCompleted;
@@ -176,4 +217,8 @@ public interface ILevelSource
     event Action OnTimerFinished;
     event Action OnTypingError;
     event Action OnWordCompleted;
+    event Action OnRunRestarted;
+
+    void StartRun();
+    void RestartRun();
 }
