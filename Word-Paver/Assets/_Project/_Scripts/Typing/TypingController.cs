@@ -9,17 +9,21 @@ public class TypingController : Singleton<ITypingSource>, ITypingSource
 
     public event Action<string> OnWordChanged;
 
-    public int CurrentWordLength => _currentWord.Length;
-    public string CurrentWord => _currentWord;
+    public int CurrentWordLength => string.IsNullOrEmpty(_currentWord) ? 0 : _currentWord.Length;
+    public string CurrentWord => _currentWord ?? string.Empty;
 
     private string _currentWord;
     private int _currentIndex;
 
     private void Update()
     {
+        if (GameManager.Source.CurrentGameState != GameState.OnPlay) return;
+
         foreach (char c in Input.inputString)
         {
-            ProcessInput(c);
+            if (!char.IsLetter(c)) continue;
+
+            ProcessInput(char.ToLowerInvariant(c));
         }
     }
 
@@ -29,7 +33,6 @@ public class TypingController : Singleton<ITypingSource>, ITypingSource
         _currentIndex = 0;
 
         OnWordChanged?.Invoke(word);
-        Debug.Log($"Current word: {_currentWord}");
     }
 
     public void ProcessInput(char input)

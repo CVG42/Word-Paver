@@ -8,7 +8,7 @@ public class WorldDefinition : ScriptableObject
     public GameObject BlockPrefab;
 
     [Header("Environment")]
-    public GameObject[] EnvironmentPrefabs;
+    public WorldTileDefinition Environment;
 
     [Header("Difficulty")]
     public float DifficultyMultiplier = 1f;

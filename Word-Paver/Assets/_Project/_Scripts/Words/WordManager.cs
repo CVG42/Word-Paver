@@ -10,6 +10,11 @@ public class WordManager : Singleton<IWordSource>, IWordSource
         return _database.GetRandomWord(difficulty);
     }
 
+    public string GetWordByDifficulty(int difficulty)
+    {
+        return _database.GetRandomWord(difficulty);
+    }
+
     private int CalculateDifficulty(float distance)
     {
         if (distance < 50) return 1;
@@ -21,4 +26,5 @@ public class WordManager : Singleton<IWordSource>, IWordSource
 public interface IWordSource
 {
     string GetWord(float distance);
+    string GetWordByDifficulty(int difficulty);
 }
