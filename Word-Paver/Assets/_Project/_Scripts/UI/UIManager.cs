@@ -1,7 +1,5 @@
-using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Rendering.MaterialUpgrader;
 
 public class UIManager : Singleton<IUISource>, IUISource
 {
