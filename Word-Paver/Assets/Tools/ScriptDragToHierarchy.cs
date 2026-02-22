@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -42,4 +43,4 @@ public static class ScriptDragToHierarchy
         Selection.activeGameObject = go;
     }
 }
-
+#endif

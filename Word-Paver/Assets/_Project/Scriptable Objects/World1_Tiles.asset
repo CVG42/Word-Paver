@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: World1_Tiles
   m_EditorClassIdentifier: Assembly-CSharp::WorldTileDefinition
   TileVariants:
-  - {fileID: -293704639154427236, guid: 8f5191013a72ca0418ed6fb8e0a0d720, type: 3}
-  - {fileID: 3659221315127471839, guid: f0563dd24f33099429b6381f48983d40, type: 3}
-  - {fileID: 1321487444449905043, guid: 74358f9f8b8cbbd4ea574ad9ea5e3054, type: 3}
+  - {fileID: -7191733829115402321, guid: 6ebc2448e510c4e4c8b3f954562a48f2, type: 3}
+  - {fileID: -6483643690552121509, guid: aa048d5f8e1bd0a4aa19e1303a450135, type: 3}
+  - {fileID: 7364240371782702875, guid: 4a906b126f3445f4a8b1af516ae679b5, type: 3}
+  - {fileID: -584316338720363054, guid: 26dcd67991ad1054b9506d61612e54ca, type: 3}
+  - {fileID: -4701127064956130554, guid: a83f62055f64e6944ac8f6d5040932d3, type: 3}

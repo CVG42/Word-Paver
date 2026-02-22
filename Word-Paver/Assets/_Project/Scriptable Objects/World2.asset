@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: World 2
   StartDistance: 100
   BlockPrefab: {fileID: 4407544032830886722, guid: dbe9a1bd77fdedc459d4b40d462ae271, type: 3}
-  Environment: {fileID: 11400000, guid: 20b996cc0531c884c9bd27b75e0cdee9, type: 2}
+  Environment: {fileID: 11400000, guid: 60b8df0361b266248a03ce026e835857, type: 2}
   DifficultyMultiplier: 2
