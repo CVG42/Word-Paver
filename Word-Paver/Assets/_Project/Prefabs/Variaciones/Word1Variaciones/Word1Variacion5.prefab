@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3562624458502338603}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.2841501, y: 0, z: -4.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -69,7 +69,7 @@ Transform:
   m_GameObject: {fileID: 4556060671351288025}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.26415, y: 0.25, z: 11.57149}
+  m_LocalPosition: {x: -1.98, y: 0.25, z: 6.77149}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -130,7 +130,7 @@ Transform:
   m_GameObject: {fileID: 5103980067571714875}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.09585, y: 0, z: 3.9085202}
+  m_LocalPosition: {x: 1.1883001, y: 0, z: -0.89147997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -159,6 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1470625191526667422}
+  - component: {fileID: -4701127064956130554}
   m_Layer: 0
   m_Name: Word1Variacion5
   m_TagString: Untagged
@@ -175,7 +176,7 @@ Transform:
   m_GameObject: {fileID: 5753990732794211420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.30654, y: 0, z: -4.65703}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -186,6 +187,19 @@ Transform:
   - {fileID: 1009558416668288317}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4701127064956130554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5753990732794211420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32888c7d14d91240add8209e39b0aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentTile
+  _length: 20
 --- !u!1 &7463363855505171907
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +225,7 @@ Transform:
   m_GameObject: {fileID: 7463363855505171907}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.26415, y: 0.25, z: 11.571501}
+  m_LocalPosition: {x: -1.98, y: 0.25, z: 6.7715006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -267,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 8626490317745636827}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8829398, y: 0, z: 4.65703}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 117.543, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
