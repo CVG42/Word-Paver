@@ -752,39 +752,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 038024a066b9c3540bca93a5807eed00, type: 3}
---- !u!33 &1644068720244755769
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5164485092236389389}
-  m_Mesh: {fileID: 2390566776218671306, guid: 30e7de0494f928443853c4cfa0f866ed, type: 3}
---- !u!1 &5164485092236389389
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8434490526616211934}
-  - component: {fileID: 1644068720244755769}
-  - component: {fileID: 9075393830911323642}
-  m_Layer: 0
-  m_Name: cliff_blockQuarter_rock (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8434490526616211934
+--- !u!4 &1512092747840083937
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5164485092236389389}
+  m_GameObject: {fileID: 8417268864206424408}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.4235992, y: 0, z: 0}
@@ -793,13 +767,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &9075393830911323642
+--- !u!33 &2705062435029344134
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417268864206424408}
+  m_Mesh: {fileID: 2390566776218671306, guid: 30e7de0494f928443853c4cfa0f866ed, type: 3}
+--- !u!23 &5012615693200840051
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5164485092236389389}
+  m_GameObject: {fileID: 8417268864206424408}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -843,6 +825,24 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8417268864206424408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1512092747840083937}
+  - component: {fileID: 2705062435029344134}
+  - component: {fileID: 5012615693200840051}
+  m_Layer: 0
+  m_Name: cliff_blockQuarter_rock (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -855,4 +855,4 @@ SceneRoots:
   - {fileID: 362460103}
   - {fileID: 382716380}
   - {fileID: 903429870}
-  - {fileID: 8434490526616211934}
+  - {fileID: 1512092747840083937}
