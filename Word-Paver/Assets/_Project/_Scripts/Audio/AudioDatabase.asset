@@ -25,3 +25,5 @@ MonoBehaviour:
     audioName: Type
   - audio: {fileID: 8300000, guid: 180f870983c4162418b2fdfe83a93ddf, type: 3}
     audioName: Spawn
+  - audio: {fileID: 8300000, guid: be4abb64dc4613e40aa014e13dffaefc, type: 3}
+    audioName: Next

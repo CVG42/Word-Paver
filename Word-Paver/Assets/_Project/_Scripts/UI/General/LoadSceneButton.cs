@@ -20,6 +20,6 @@ public class LoadSceneButton : MonoBehaviour
 
     private void LoadScene()
     {
-        SceneManager.LoadScene(_sceneName);
+        SceneTransitionManager.Source.LoadScene(_sceneName);
     }
 }

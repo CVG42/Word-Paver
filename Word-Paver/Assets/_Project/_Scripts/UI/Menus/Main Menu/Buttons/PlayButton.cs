@@ -38,6 +38,6 @@ public class PlayButton : MonoBehaviour
 
         await UniTask.Delay(1500);
 
-        SceneManager.LoadScene(_sceneName);
+        SceneTransitionManager.Source.LoadScene(_sceneName);
     }
 }
