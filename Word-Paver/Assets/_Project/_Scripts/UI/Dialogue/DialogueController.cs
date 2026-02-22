@@ -25,6 +25,7 @@ public class DialogueController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            AudioManager.Source.PlayNextSFX();
             AdvanceDialogue();
         }
     }
